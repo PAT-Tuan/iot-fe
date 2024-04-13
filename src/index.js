@@ -9,6 +9,7 @@ import Layout from "./page/layout";
 import Home from "./page/home";
 import Order from "./page/order";
 import Login from "./page/login";
+import Register from "./page/register";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
@@ -21,6 +22,7 @@ root.render(
         <Route path="/order" element={<Order />} />
       </Route>
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
     </Routes>
   </BrowserRouter>
 );

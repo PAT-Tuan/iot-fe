@@ -12,11 +12,19 @@ import {
 import { CookiesProvider, useCookies } from "react-cookie";
 
 import { useRoutes } from "react-router-dom";
+import register from "../../page/register";
+import { useEffect } from "react";
 
 function App() {
-  const [email, setEmail] = useState("");
+  const [ email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cookies, setCookie] = useCookies(["user"]);
+
+  useEffect(()=>{
+    if (!!cookies.token){
+      window.location.href = "/";
+    }
+  })
 
   function login() {
     var isSuccess = false;
@@ -43,12 +51,12 @@ function App() {
       redirect: "follow",
     };
 
+    // console.log("go login")
     fetch("https://iot-be-y8op.onrender.com/v1/auth/login", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result.isSuccess) {
           setCookie("token", result.token);
-          alert("Login successfully");
           window.location.href = "/";
         } else {
           alert(result.message);
@@ -67,7 +75,7 @@ function App() {
           >
             <MDBCardBody className="p-5 d-flex flex-column align-items-center mx-auto w-100">
               <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
-
+              
               <MDBInput
                 wrapperClass="mb-4 mx-5 w-100"
                 labelClass="text-white"
@@ -92,8 +100,9 @@ function App() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-
+              
               <MDBBtn
+                
                 outline
                 className="mx-2 px-5"
                 color="white"
@@ -102,6 +111,12 @@ function App() {
               >
                 Login
               </MDBBtn>
+              
+              <div className="text-center"></div>
+              <p><a></a></p>
+              <p>Not a member? <a href="/register" >Register</a></p>
+              
+
             </MDBCardBody>
           </MDBCard>
         </MDBCol>

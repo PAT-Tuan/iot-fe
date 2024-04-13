@@ -9,6 +9,8 @@ import {
   MDBCardImage,
   MDBIcon,
 } from "mdb-react-ui-kit";
+import { useEffect } from "react";
+import { CookiesProvider, useCookies } from "react-cookie";
 
 var group = [
   {
@@ -85,6 +87,14 @@ const listCard = (title, data = []) => {
 };
 
 const Home = () => {
+
+  const [cookies] = useCookies(["user"]);
+  useEffect(()=>{
+    if (!cookies.token){
+      window.location.href = "/login";
+    }
+  })
+
   return <>{group.map((item) => listCard(item.title, item.data))}</>;
 };
 
